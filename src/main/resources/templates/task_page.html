@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<form action="#" th:action="@{/tasks/{id}(id = ${task.id})}" th:object="${task}" th:method="PATCH">
+    <input type="hidden" th:field="*{id}" id="taskId">
+    <label for="description">Description</label>
+    <input type="text" th:field="*{description}" id="description" placeholder="Description"
+           th:value="*{description}">
+    <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Desc Error</div>
+    <label for="status">Status</label>
+    <select th:field="*{status}" id="status">
+        <option th:each="value: ${statuses}" th:value="${value}" th:text="${value}"></option>
+    </select>
+    <input type="submit" th:value="Done">
+</form>
+<form th:action="@{/tasks/{id}(id = ${task.id})}" th:method="DELETE" th:object="${task}">
+    <input type="submit" th:value="Delete">
+</form>
+<form th:action="@{/tasks/}">
+    <input type="submit" th:value="Back">
+</form>
+</body>
+</html>

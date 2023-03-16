@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: mysql_db
+    image: mysql:latest
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DB: TODO
+    ports:
+      - "3306:3306"
+  app:
+    image: app:latest
+    ports:
+       - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/todo?autoReconnect=true&useSSL=false
+    depends_on:
+       - db
